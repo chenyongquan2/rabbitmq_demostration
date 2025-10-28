@@ -10,7 +10,8 @@ import (
 
 var retryInterval = 5 * time.Second
 
-// Connect creates a connection and channel to RabbitMQ with automatic retry.
+// Connect：负责连接 RabbitMQ 服务器并返回频道（Channel）
+// 包含简单的自动重试逻辑，保证服务启动时 RabbitMQ 尚未就绪也能自动等待。
 func Connect(url string) (*amqp.Connection, *amqp.Channel) {
 	for {
 		conn, err := amqp.Dial(url)
